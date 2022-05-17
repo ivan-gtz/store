@@ -1,7 +1,8 @@
-import { Button, Flex, Grid, Link, Stack, Text } from "@chakra-ui/react";
+import { FC, useMemo, useState } from "react";
 import { NextPage } from "next";
 import { GetStaticProps } from 'next';
-import { useMemo, useState } from "react";
+import { Button, Flex, Grid, Image, Link, Stack, Text } from "@chakra-ui/react";
+// import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import api from "../product/api";
 import { Product } from "../product/types";
 
@@ -14,7 +15,7 @@ const parseCurrency = ( value: number ): string => {
     currency: 'BOB'
   })
 }
-export const HomeRoute:NextPage<Props> = ({ products }) => {
+export const HomeRoute:FC<Props> = ({ products }) => {
 
   const [cart, setCart] = useState<Product[]>([]);
   const text = useMemo(() => 
@@ -25,9 +26,8 @@ export const HomeRoute:NextPage<Props> = ({ products }) => {
   )
   
   
-
   return (
-    <Stack spacing={ 6 }>
+      <Stack spacing={ 6 }>
       <Grid gridGap={6} templateColumns='repeat(auto-fill, minmax(240px, 1fr))'>
         {
           products.map(product => 
@@ -39,6 +39,14 @@ export const HomeRoute:NextPage<Props> = ({ products }) => {
               key={product.id}
               spacing={ 3 }
             >
+              <Image 
+                alt={product.title}
+                cursor='pointer'
+                src={ product.image }
+                maxHeight={128}
+                objectFit='cover'
+                borderTopRadius='md'
+                />
               <Stack spacing={ 1 }>
                 <Text>{ product.title }</Text>
                 <Text
@@ -63,7 +71,7 @@ export const HomeRoute:NextPage<Props> = ({ products }) => {
         }
       </Grid>
       {
-        cart.length &&
+        cart.length &&(
         <Flex
           position='sticky'
           bottom={4}
@@ -80,7 +88,7 @@ export const HomeRoute:NextPage<Props> = ({ products }) => {
             Completar pedido ({cart.length} productos)
           </Button>
         </Flex>
-      }
+      )}
     </Stack>
   )
 }
