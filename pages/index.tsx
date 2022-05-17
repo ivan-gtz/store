@@ -82,7 +82,7 @@ export const HomeRoute:FC<Props> = ({ products }) => {
             as={Link} 
             width='fit-content'
             colorScheme='whatsapp' 
-            href={`https://wa.me/+59167454317?text=${encodeURIComponent(text)}`} 
+            href={`https://wa.me/+591 67454317?text=${encodeURIComponent(text)}`} 
             isExternal
           >
             Completar pedido ({cart.length} productos)
